@@ -1,24 +1,50 @@
 package com.venrique.taller4
 
+import android.content.Intent
+import android.net.Uri
+import android.nfc.Tag
 import android.os.Bundle
+import android.util.Log
 import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity;
 import android.view.Menu
 import android.view.MenuItem
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProviders
+import com.venrique.taller4.Database.Entities.Autor
+import com.venrique.taller4.Database.Entities.Libro
+import com.venrique.taller4.Database.Entities.LibroTagJoin
+import com.venrique.taller4.Database.Entities.Tags
+import com.venrique.taller4.Fragments.LibroDetailFragment
+import com.venrique.taller4.Fragments.LibroListaFragment
+import com.venrique.taller4.ViewModel.LibrosViewModel
 
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), LibroListaFragment.OnFragmentInteractionListener, LibroDetailFragment.OnFragmentInteractionListener {
+    override fun onFragmentInteraction(uri: Uri) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    lateinit var listaFragment: LibroListaFragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
 
+        listaFragment = LibroListaFragment()
+        supportFragmentManager.beginTransaction().replace(R.id.contenedorFragment,listaFragment).commit()
+
+
         fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show()
+            val intent = Intent(this,NewBookActivity::class.java)
+            startActivity(intent)
         }
+
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

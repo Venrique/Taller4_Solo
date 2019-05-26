@@ -20,8 +20,8 @@ interface AutorDao {
     fun deleteOne(id:Int)
 
     @Query("SELECT * from autor")
-    fun selectAll(): List<Autor>
+    fun selectAll(): LiveData<List<Autor>>
 
     @Query("SELECT * from autor where Aid=:id")
-    fun selectOne(id: Int)
+    fun selectOne(id: Int): Autor
 }
